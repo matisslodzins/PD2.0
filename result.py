@@ -5,11 +5,14 @@ from selenium.webdriver.common.by import By
 import time
 
 
+
+'''
+
                                                 #ja vēlas citus parametrus
 minCena = input("ievadiet minimālo cenu: ")
-maxCena = input("ievadiet minimālo cenu: ")
+maxCena = input("ievadiet maksimālo cenu: ")
 minGads = input("ievadiet minimālo vecumu: ")
-maxGads = input("ievadiet minimālo vecumu: ")
+maxGads = input("ievadiet maksimalo vecumu: ")
 
 print("1. Benzīns, 2. Benzīns/gāze, 3. Dīzelis, 4. Hybrid, 5. Elekstriskais")
 dzinejs = input("ievadiet dzinēja tipu skaitrli: ")
@@ -26,7 +29,7 @@ elif dzinejs == "5":
 else: print("kļūda, neeksistē")
 dzinejs = dzinejs.lstrip().rstrip()
 
-karba = input("ievadiet 1, ja vēlaties automātu un 2, ja vēlaties manuālu): ")
+karba = input("ievadiet 1, ja vēlaties automātu un 2, ja vēlaties manuālu: ")
 if karba == 1:
     karba = "Automāts"
 else: karba = "Manuāla"
@@ -55,14 +58,14 @@ elif tips == "9":
     tips = "Universāls" 
 else: print("kļūda, neeksistē")  
 tips = tips.lstrip().rstrip()
-
-#minCena = 2000
-#maxCena = 4000
-#minGads = 2000
-#maxGads = 2020
-#dzinejs = "Dīzelis"
-#karba = "Manuāla"
-#tips = "Kupeja"
+'''
+minCena = 2000
+maxCena = 4000
+minGads = 2000
+maxGads = 2020
+dzinejs = "Dīzelis"
+karba = "Manuāla"
+tips = "Kupeja"
 
 service = Service()
 option = webdriver.ChromeOptions()
@@ -78,7 +81,7 @@ find.send_keys(minCena)
 #minimālās cenas atzīmēšana
 find = driver.find_element(By.ID, "f_o_8_max")
 find.send_keys(maxCena)
-
+time.sleep(1)
 #minimālā gada atzīmēšana
 find = driver.find_element(By.XPATH, "//select[@name='topt[18][min]']")
 find.click()
@@ -107,6 +110,46 @@ find = driver.find_element(By.XPATH, "//select[@name='opt[32]']")
 find.click()
 find = driver.find_element(By.XPATH, f"//select[@name='opt[32]']/option[text()='{tips}']")
 find.click()
+ 
 
+
+
+
+#table = driver.find_element(By.XPATH, '//table')
+masinas = driver.find_elements(By.XPATH, '//table[@id="page_main"]//tr[@id="head_line"]/following-sibling::tr')
+
+for i in range(len(masinas)):
+    
+    # programma apstajas, ja neredz kur spiest, sitas basically scrollo
+    driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
+    masinas[i].click()
+    #seit lasis visu info un metis tabula, visi id pareizie
+    
+    
+    #find = driver.find_element(By.ID, "tdo_31")    #marka
+
+    #find = driver.find_element(By.ID, "tdo_18")    #gads
+
+    #find = driver.find_element(By.ID, "tdo_34")    #dzinejs
+
+    #find = driver.find_element(By.ID, "tdo_35")    #kārba
+
+    #find = driver.find_element(By.ID, "tdo_16")    #nobraukums
+
+    #find = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
+
+    #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
+    #find1.click() 
+     
+    #un tad janolasa
+    
+    time.sleep(2)
+    #atpakal uz lapu
+    driver.back()
+    time.sleep(1)
+    table = driver.find_element(By.XPATH, '//table')
+    masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
+
+    #jaizdoma vel ka noteikt pedejo masinu, savadak programma met erroru, viss strada bet beigas errors idk
 
 input()

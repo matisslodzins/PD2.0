@@ -8,11 +8,7 @@ from openpyxl import Workbook, load_workbook
 wb=load_workbook('masinu_gramata.xlsx')
 ws=wb.active
 
-
-
-
 '''
-
                                                 #ja vēlas citus parametrus
 minCena = input("ievadiet minimālo cenu: ")
 maxCena = input("ievadiet maksimālo cenu: ")
@@ -116,14 +112,19 @@ find.click()
 find = driver.find_element(By.XPATH, f"//select[@name='opt[32]']/option[text()='{tips}']")
 find.click()
  
-
-
-
+ws['a'+str(1)].value = 'Mašīna'
+ws['b'+str(1)].value = 'Izlaidums'
+ws['c'+str(1)].value = 'Dzinējs'
+ws['d'+str(1)].value = 'Kārba'
+ws['e'+str(1)].value = 'Tips'
 
 #table = driver.find_element(By.XPATH, '//table')
 masinas = driver.find_elements(By.XPATH, '//table[@id="page_main"]//tr[@id="head_line"]/following-sibling::tr')
 
-for i in range(len(masinas)):
+col = 2
+
+#for i in range(len(masinas)):
+for i in range(5):
     
     # programma apstajas, ja neredz kur spiest, sitas basically scrollo
     driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
@@ -131,24 +132,36 @@ for i in range(len(masinas)):
     #seit lasis visu info un metis tabula
     
     find_marka = driver.find_element(By.ID, "tdo_31")    #marka
+    fmarka = find_marka.text
+    ws['a'+str(col)].value = fmarka
 
     find_gads = driver.find_element(By.ID, "tdo_18")    #gads
+    fgads = find_gads.text
+    ws['B'+str(col)].value = fgads
 
     find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
+    fdzinejs = find_dzinejs.text
+    ws['C'+str(col)].value = fdzinejs
 
     find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
+    fkarba = find_karba.text
+    ws['D'+str(col)].value = fkarba
 
     #find_nobraukums = driver.find_element(By.ID, "tdo_16")    #nobraukums
 
     find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
+    fuzbuve = find_uzbuve.text
+    ws['E'+str(col)].value = fuzbuve
 
     #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
     #find1.click() 
-     
+
+    col = col+1
+    
     #un tad janolasa
     
     time.sleep(2)
-    print([find_marka.text, find_gads.text, find_dzinejs.text, find_karba.text, find_uzbuve.text]) 
+    #print([find_marka.text, find_gads.text, find_dzinejs.text, find_karba.text, find_uzbuve.text]) 
     
     #atpakal uz lapu
     driver.back()
@@ -158,4 +171,5 @@ for i in range(len(masinas)):
 
     #jaizdoma vel ka noteikt pedejo masinu, savadak programma met erroru, viss strada bet beigas errors idk
 
-input()
+wb.save('masinu_gramata.xlsx')
+wb.close()

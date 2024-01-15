@@ -3,6 +3,11 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 import time
+from openpyxl import Workbook, load_workbook 
+
+wb=load_workbook('masinu_gramata.xlsx')
+ws=wb.active
+
 
 
 
@@ -123,20 +128,19 @@ for i in range(len(masinas)):
     # programma apstajas, ja neredz kur spiest, sitas basically scrollo
     driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
     masinas[i].click()
-    #seit lasis visu info un metis tabula, visi id pareizie
+    #seit lasis visu info un metis tabula
     
-    
-    #find = driver.find_element(By.ID, "tdo_31")    #marka
+    find_marka = driver.find_element(By.ID, "tdo_31")    #marka
 
-    #find = driver.find_element(By.ID, "tdo_18")    #gads
+    find_gads = driver.find_element(By.ID, "tdo_18")    #gads
 
-    #find = driver.find_element(By.ID, "tdo_34")    #dzinejs
+    find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
 
-    #find = driver.find_element(By.ID, "tdo_35")    #kārba
+    find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
 
-    #find = driver.find_element(By.ID, "tdo_16")    #nobraukums
+    #find_nobraukums = driver.find_element(By.ID, "tdo_16")    #nobraukums
 
-    #find = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
+    find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
 
     #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
     #find1.click() 
@@ -144,6 +148,8 @@ for i in range(len(masinas)):
     #un tad janolasa
     
     time.sleep(2)
+    print([find_marka.text, find_gads.text, find_dzinejs.text, find_karba.text, find_uzbuve.text]) 
+    
     #atpakal uz lapu
     driver.back()
     time.sleep(1)

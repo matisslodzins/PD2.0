@@ -9,6 +9,7 @@ wb=load_workbook('masinu_gramata.xlsx')
 ws=wb.active
 
 '''
+
                                                 #ja vēlas citus parametrus
 minCena = input("ievadiet minimālo cenu: ")
 maxCena = input("ievadiet maksimālo cenu: ")
@@ -117,6 +118,8 @@ ws['b'+str(1)].value = 'Izlaidums'
 ws['c'+str(1)].value = 'Dzinējs'
 ws['d'+str(1)].value = 'Kārba'
 ws['e'+str(1)].value = 'Tips'
+ws['h'+str(1)].value = 'Cena'
+ws['i'+str(1)].value = 'Links'
 
 #table = driver.find_element(By.XPATH, '//table')
 masinas = driver.find_elements(By.XPATH, '//table[@id="page_main"]//tr[@id="head_line"]/following-sibling::tr')
@@ -153,6 +156,9 @@ for i in range(5):
     fuzbuve = find_uzbuve.text
     ws['E'+str(col)].value = fuzbuve
 
+    find_cena = driver.find_element(By.ID, "tdo_8")    #cena
+    fcena = find_cena.text
+    ws['h'+str(col)].value = fcena
     #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
     #find1.click() 
 
@@ -170,6 +176,7 @@ for i in range(5):
     masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
 
     #jaizdoma vel ka noteikt pedejo masinu, savadak programma met erroru, viss strada bet beigas errors idk
+
 
 wb.save('masinu_gramata.xlsx')
 wb.close()

@@ -2,6 +2,7 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import ElementNotInteractableException
 import time
 from openpyxl import Workbook, load_workbook 
 
@@ -64,7 +65,7 @@ tips = tips.lstrip().rstrip()
 minCena = 2000
 maxCena = 4000
 minGads = 2000
-maxGads = 2020
+maxGads = 2002
 dzinejs = "Dīzelis"
 karba = "Manuāla"
 tips = "Kupeja"
@@ -76,7 +77,9 @@ driver = webdriver.Chrome(service=service, options=option)
 url = "https://www.ss.lv/lv/transport/cars/"
 driver.get(url)
 time.sleep(2)
-
+#coocies
+find = driver.find_element(By.XPATH, '//*[@id="cookie_confirm_body"]/table/tbody/tr/td[2]/button')
+find.click()
 #minimālās cenas atzīmēšana
 find = driver.find_element(By.ID, "f_o_8_min")
 find.send_keys(minCena)
@@ -124,59 +127,75 @@ ws['i'+str(1)].value = 'Links'
 #table = driver.find_element(By.XPATH, '//table')
 masinas = driver.find_elements(By.XPATH, '//table[@id="page_main"]//tr[@id="head_line"]/following-sibling::tr')
 
+
 col = 2
 
-#for i in range(len(masinas)):
-for i in range(5):
+for i in range(len(masinas)):
+#for i in range(5):
+    try:     
+        # programma apstajas, ja neredz kur spiest, sitas basically scrollo
+        driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
+        masinas[i].click()
+        #seit lasis visu info un metis tabula
+        
+        find_marka = driver.find_element(By.ID, "tdo_31")    #marka
+        fmarka = find_marka.text
+        ws['a'+str(col)].value = fmarka
+
+        find_gads = driver.find_element(By.ID, "tdo_18")    #gads
+        fgads = find_gads.text
+        ws['B'+str(col)].value = fgads
+
+        find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
+        fdzinejs = find_dzinejs.text
+        ws['C'+str(col)].value = fdzinejs
+
+        find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
+        fkarba = find_karba.text
+        ws['D'+str(col)].value = fkarba
+
+        #dazam masinam nav nobraukums, so jaliek cikla kas to checko
+        try:
+            find_nobraukums = driver.find_element(By.ID, "tdo_16")   #nobraukums
+            fnobraukums = find_nobraukums.text
+
+        except NoSuchElementException:
+            fnobraukums = "Nav norādīts"
+        
+        ws['f'+str(col)].value = fnobraukums
+
+
+        find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
+        fuzbuve = find_uzbuve.text
+        ws['E'+str(col)].value = fuzbuve
+
+        find_cena = driver.find_element(By.ID, "tdo_8")    #cena
+        fcena = find_cena.text
+        ws['h'+str(col)].value = fcena
+        #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
+        #find1.click() 
+
+        find_links = driver.current_url
+        ws['i'+str(col)].value = find_links
+
+
+        col = col+1
+        
+        #un tad janolasa
+        
+        time.sleep(1)
+        #print([find_marka.text, find_gads.text, find_dzinejs.text, find_karba.text, find_uzbuve.text]) 
+        
+        #atpakal uz lapu
+        driver.back()
+        time.sleep(1)
+        table = driver.find_element(By.XPATH, '//table')
+        masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
+
+    except ElementNotInteractableException:
+        print("beidzas masinas")
+        break
     
-    # programma apstajas, ja neredz kur spiest, sitas basically scrollo
-    driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
-    masinas[i].click()
-    #seit lasis visu info un metis tabula
-    
-    find_marka = driver.find_element(By.ID, "tdo_31")    #marka
-    fmarka = find_marka.text
-    ws['a'+str(col)].value = fmarka
-
-    find_gads = driver.find_element(By.ID, "tdo_18")    #gads
-    fgads = find_gads.text
-    ws['B'+str(col)].value = fgads
-
-    find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
-    fdzinejs = find_dzinejs.text
-    ws['C'+str(col)].value = fdzinejs
-
-    find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
-    fkarba = find_karba.text
-    ws['D'+str(col)].value = fkarba
-
-    #find_nobraukums = driver.find_element(By.ID, "tdo_16")    #nobraukums
-
-    find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
-    fuzbuve = find_uzbuve.text
-    ws['E'+str(col)].value = fuzbuve
-
-    find_cena = driver.find_element(By.ID, "tdo_8")    #cena
-    fcena = find_cena.text
-    ws['h'+str(col)].value = fcena
-    #find1 = driver.find_element(By.XPATH, '//*[@id="tdo_1678"]/a')  #VINNUMMURS  VEL JANOSPIEA KA NEESI ROBOTS, BET MAN NELEC VINS ARA,NEZINU ID, BET BUS GANJAU
-    #find1.click() 
-
-    col = col+1
-    
-    #un tad janolasa
-    
-    time.sleep(2)
-    #print([find_marka.text, find_gads.text, find_dzinejs.text, find_karba.text, find_uzbuve.text]) 
-    
-    #atpakal uz lapu
-    driver.back()
-    time.sleep(1)
-    table = driver.find_element(By.XPATH, '//table')
-    masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
-
-    #jaizdoma vel ka noteikt pedejo masinu, savadak programma met erroru, viss strada bet beigas errors idk
-
 
 wb.save('masinu_gramata.xlsx')
 wb.close()

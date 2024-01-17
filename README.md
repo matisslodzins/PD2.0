@@ -5,6 +5,7 @@ Gribam izpētīt piedāvājumu un atrast izdevīgāko sludinājumu interneta vie
 **Uzdevuma soļi:**
 izmantotjot, **selenium** un **openpyxl** bibleotēku darbības uzrakstīt algortimu, kas nolsasīs no mājaslapas **ss.lv**(https://www.ss.lv/lv/) mašīnu sludinājumus un tos saglabās excel failā.
 
+
 **Mašīnu paramatri, kurus jāievada interneta vietnē:**
 
 Min. un Maks. mašīnas cenas.
@@ -34,5 +35,8 @@ Mašīnas esošais nobraukums.
 Mašīnas cena.
 
 Saites links uz noteiktās mašīnas sludinajumu.
+
+**Excel faila uzbuve**
+
 
 Katru nolasīto parametru ievadīt sev attiecīgajā faila kollonā un saglabāt failu.

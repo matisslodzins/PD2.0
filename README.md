@@ -36,7 +36,5 @@ Mašīnas cena.
 
 Saites links uz noteiktās mašīnas sludinajumu.
 
-**Excel faila uzbuve**
 
-
-Katru nolasīto parametru ievadīt sev attiecīgajā faila kollonā un saglabāt failu.
+Katru nolasīto parametru ievadīt sev attiecīgajā faila kollonā un saglabāt failā **masinu_gramata.xlsx**.

@@ -4,6 +4,7 @@ Velamies meklēt mašīnas pēc noteiktajiem parametriem, un apkopot informrāci
 Gribam izpētīt piedāvājumu un atrast izdevīgāko sludinājumu interneta vietnē ss.lv
 **Uzdevuma soļi:**
 izmantotjot, **selenium** un **openpyxl** bibleotēku darbības uzrakstīt algortimu, kas nolsasīs no mājaslapas **ss.lv**(https://www.ss.lv/lv/) mašīnu sludinājumus un tos saglabās excel failā.
+
 **Mašīnu paramatri, kurus jāievada interneta vietnē:**
 
 Min. un Maks. mašīnas cenas.

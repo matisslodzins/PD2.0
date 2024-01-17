@@ -1,5 +1,5 @@
 # Lasi informāciju no intereneta vietnes
-**Kodu jāsaglabā result.py failā**
+
 Velamies meklēt mašīnas pēc noteiktajiem parametriem, un apkopot informrāciju excel failā
 Gribam izpētīt piedāvājumu un atrast izdevīgāko sludinājumu interneta vietnē ss.lv
 **Uzdevuma soļi:**
@@ -38,3 +38,6 @@ Saites links uz noteiktās mašīnas sludinajumu.
 
 
 Katru nolasīto parametru ievadīt sev attiecīgajā faila kollonā un saglabāt failā **masinu_gramata.xlsx**.
+
+**Kodu jāsaglabā result.py failā**
+

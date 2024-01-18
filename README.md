@@ -11,7 +11,7 @@ RDBI0 - 4.grupa
 Velamies meklēt mašīnas pēc noteiktajiem parametriem, un apkopot informrāciju excel failā
 Gribam izpētīt piedāvājumu un atrast izdevīgāko sludinājumu interneta vietnē ss.lv
 **Uzdevuma soļi:**
-izmantotjot, **selenium** un **openpyxl** bibleotēku darbības uzrakstīt algortimu, kas nolsasīs no mājaslapas **ss.lv**(https://www.ss.lv/lv/) mašīnu sludinājumus un tos saglabās excel failā. Ir sāotnēji nepieciešams aiziet uz mājaslapas sadaļu **Vieglie auto** un ievadīt nepieciešamos mašīnu meklēšanas parametrus.
+izmantotjot, **selenium** un **openpyxl** bibleotēkas, kuras paredzētas gan "web scraping", gan excel faila redigēšanai, uzrakstīt algortimu, kas nolsasīs no mājaslapas **ss.lv**(https://www.ss.lv/lv/) mašīnu sludinājumus un tos saglabās excel failā. Ir sāotnēji nepieciešams aiziet uz mājaslapas sadaļu **Vieglie auto** un ievadīt nepieciešamos mašīnu meklēšanas parametrus.
 
 
 **Mašīnu paramatri, kurus jāievada interneta vietnē:**

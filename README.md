@@ -1,6 +1,6 @@
 # Lasi informāciju no intereneta vietnes
 
-Projektu veidoja
+Projektu veidoja:
 
 Emīls Mamajs - 231RDB225
 

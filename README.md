@@ -1,5 +1,10 @@
 # Lasi informāciju no intereneta vietnes
 
+Projektu veidoja
+Emīls Mamajs - 231RDB225
+Matīss Pēteris Lodziņs - 231RDB253
+RDBI0 - 4.grupa
+
 Velamies meklēt mašīnas pēc noteiktajiem parametriem, un apkopot informrāciju excel failā
 Gribam izpētīt piedāvājumu un atrast izdevīgāko sludinājumu interneta vietnē ss.lv
 **Uzdevuma soļi:**

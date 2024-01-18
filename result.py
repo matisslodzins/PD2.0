@@ -18,11 +18,11 @@ print(" ")
 print("1. Benzīns, 2. Benzīns/gāze, 3. Dīzelis, 4. Hybrid, 5. Elekstriskais")
 dzinejs = input("ievadiet dzinēja tipu skaitli: ")
 if dzinejs =="1":
-    dzinejs =="Benzīns"
+    dzinejs ="Benzīns"
 elif dzinejs == "2":
     dzinejs = "Benzīns/gāze"
 elif dzinejs == "3":
-    dzinejs = " Dīzelis"  
+    dzinejs = "Dīzelis"  
 elif dzinejs == "4":
     dzinejs = "Hybrid" 
 elif dzinejs == "5":
@@ -44,7 +44,7 @@ print("1. Apvidus, 2. Hečbeks, 3. Kabriolets, 4. Mikroautobuss,")
 print("5. Minivens, 6. Pikaps, 7. Sedans, 8. Kupeja, 9. Universāls ")
 tips = input("ievadiet auto tipa skaitli: ")
 if tips == "1":
-    tips =="Apvidus"
+    tips ="Apvidus"
 elif tips == "2":
     tips = "Hečbeks"
 elif tips == "3":
@@ -65,10 +65,10 @@ else: print("kļūda, neeksistē")
 tips = tips.lstrip().rstrip()
 
 #minCena = 2000
-#maxCena = 4000
+#maxCena = 3000
 #minGads = 2000
 #maxGads = 2002
-#dzinejs = "Dīzelis"
+#dzinejs = "Benzīns"
 #karba = "Manuāla"
 #tips = "Kupeja"
 
@@ -120,7 +120,7 @@ find = driver.find_element(By.XPATH, f"//select[@name='opt[32]']/option[text()='
 find.click()
 
 #clear iepriekšējo
-for row in ws['A1:H5000']:
+for row in ws['A1:H100']:
     for cell in row:
         cell.value = None
 
@@ -134,65 +134,65 @@ ws['f'+str(1)].value = 'Nobraukums'
 ws['g'+str(1)].value = 'Cena'
 ws['h'+str(1)].value = 'Links'
 
+#try:
 masinas = driver.find_elements(By.XPATH, '//table[@id="page_main"]//tr[@id="head_line"]/following-sibling::tr')
-
 col = 2
-
 for i in range(len(masinas)):
     try:     
         # programma apstajas, ja neredz kur spiest, sis scrollo
         driver.execute_script("arguments[0].scrollIntoView();", masinas[i])
         masinas[i].click()
         #seit lasis visu info un liks tabula
-        
-        find_marka = driver.find_element(By.ID, "tdo_31")    #marka
-        fmarka = find_marka.text
-        ws['a'+str(col)].value = fmarka
-
-        find_gads = driver.find_element(By.ID, "tdo_18")    #gads
-        fgads = find_gads.text
-        ws['B'+str(col)].value = fgads
-
-        find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
-        fdzinejs = find_dzinejs.text
-        ws['C'+str(col)].value = fdzinejs
-
-        find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
-        fkarba = find_karba.text
-        ws['D'+str(col)].value = fkarba
-
-        #dazam masinam nav nobraukums, tādēļ nepieciešams cikls
         try:
-            find_nobraukums = driver.find_element(By.ID, "tdo_16")   #nobraukums
-            fnobraukums = find_nobraukums.text
+            find_marka = driver.find_element(By.ID, "tdo_31")    #marka
+            fmarka = find_marka.text
+            ws['a'+str(col)].value = fmarka
 
+            find_gads = driver.find_element(By.ID, "tdo_18")    #gads
+            fgads = find_gads.text
+            ws['B'+str(col)].value = fgads
+
+            find_dzinejs = driver.find_element(By.ID, "tdo_15")    #dzinejs
+            fdzinejs = find_dzinejs.text
+            ws['C'+str(col)].value = fdzinejs
+
+            find_karba = driver.find_element(By.ID, "tdo_35")    #kārba
+            fkarba = find_karba.text
+            ws['D'+str(col)].value = fkarba
+
+            #dazam masinam nav nobraukums, tādēļ nepieciešams cikls
+            try:
+                find_nobraukums = driver.find_element(By.ID, "tdo_16")   #nobraukums
+                fnobraukums = find_nobraukums.text
+
+            except NoSuchElementException:
+                fnobraukums = "Nav norādīts"
+            
+            ws['f'+str(col)].value = fnobraukums
+
+            find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
+            fuzbuve = find_uzbuve.text
+            ws['E'+str(col)].value = fuzbuve
+
+            find_cena = driver.find_element(By.ID, "tdo_8")    #cena
+            fcena = find_cena.text
+            ws['g'+str(col)].value = fcena
+
+            find_links = driver.current_url  #links
+            ws['h'+str(col)].value = find_links
+
+            col = col+1        
+            time.sleep(1)
+            
+            #atpakal uz lapu
+            driver.back()
+            time.sleep(1)
+            table = driver.find_element(By.XPATH, '//table')
+            masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
         except NoSuchElementException:
-            fnobraukums = "Nav norādīts"
-        
-        ws['f'+str(col)].value = fnobraukums
-
-        find_uzbuve = driver.find_element(By.ID, "tdo_32")    #uzbuves tips
-        fuzbuve = find_uzbuve.text
-        ws['E'+str(col)].value = fuzbuve
-
-        find_cena = driver.find_element(By.ID, "tdo_8")    #cena
-        fcena = find_cena.text
-        ws['g'+str(col)].value = fcena
-
-        find_links = driver.current_url  #links
-        ws['h'+str(col)].value = find_links
-
-        col = col+1        
-        time.sleep(1)
-        
-        #atpakal uz lapu
-        driver.back()
-        time.sleep(1)
-        table = driver.find_element(By.XPATH, '//table')
-        masinas = table.find_elements(By.XPATH, './/tr[@id="head_line"]/following-sibling::tr')
-
+            print("Nav mašīnu sludinājumi ar norādītajiem parametriem")
+            
     except ElementNotInteractableException:
         break
-    
 wb.save('masinu_gramata.xlsx')
-wb.close()
+wb.close() 
